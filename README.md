@@ -65,28 +65,6 @@ Some examples of calls and outputs for each endpoint.
 				  }
 				]
 			}<b>
-	<b>404</b><br>
-	    Parametro opcional {lang}: nr
-			{}
-
-<b>GET</b> http://localhost:8081/api/books/{isbn}<br>
-	<b>200</b><br>
-	    Parametro requerido {isbn}: ISBN-123456
-			{
-			  "isbn": "ISBN-345341",  
-			  "title": "La voz ausente",   
-			  "language": "pt",      
-			  "authors": ["Gabriel Rolon"], 
-			  "year": 1982,          
-			  "pages": 890,          
-			  "prices": {            
-				"ar": 645.20,          
-				"ch": 237.0,
-				"br": 125.69
-			  }
-			}
-	<b>404</b><br>
-	    Parametro requerido {isbn}: ISBN-12345 (Requerido)
-			{"message" : "Unable to find book with that identifier"}<br>
+	
 
 		
