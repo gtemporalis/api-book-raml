@@ -1,7 +1,7 @@
 # api-book-raml
 Api Rest Book Design using RAML
 
-Examples of calls and outputs for each endpoint.
+Some examples of calls and outputs for each endpoint.
 
 PUT http://localhost:8081/api/books/{isbn}
 	200
