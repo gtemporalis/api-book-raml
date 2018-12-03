@@ -4,23 +4,23 @@ Api Rest Book Design using RAML
 Some examples of calls and outputs for each endpoint.
 
 <b>PUT</b> http://localhost:8081/api/books/{isbn}<br>
-	200<br>
+	<b>200</b><br>
 	    Parametro requerido {isbn}: ISBN-123456
 			{"message": "The book has been successfully updated."}<br>
-	404<br>
+	<b>404</b><br>
 	    Parametro requerido {isbn}: ISBN-12345 (Requerido)
 			{"message" : "Unable to find book with that identifier"}<br>
 
-DELETE http://localhost:8081/api/books/{isbn}
-	200
+<b>DELETE</b> http://localhost:8081/api/books/{isbn}<br>
+	<b>200</b><br>
 	    Parametro requerido {isbn}: ISBN-123456
-			{"message" : "The book has been successfully removed."}
-	404
+			{"message" : "The book has been successfully removed."}<br>
+	<b>404</b><br>
 	    Parametro requerido {isbn}: ISBN-12345 (Requerido)
-			{"message" : "Unable to find book with that identifier"}
+			{"message" : "Unable to find book with that identifier"}<br>
 
-GET http://localhost:8081/api/books
-	200
+<b>GET</b> http://localhost:8081/api/books<br>
+	<b>200</b><br>
 	    Parametro opcional {lang}: en
 			{
 				"books": [
@@ -65,12 +65,12 @@ GET http://localhost:8081/api/books
 				  }
 				]
 			}
-	404
+	<b>404</b><br>
 	    Parametro opcional {lang}: nr
 			{}
 
-GET http://localhost:8081/api/books/{isbn}
-	200
+<b>GET</b> http://localhost:8081/api/books/{isbn}<br>
+	<b>200</b><br>
 	    Parametro requerido {isbn}: ISBN-123456
 			{
 			  "isbn": "ISBN-345341",  
@@ -85,8 +85,8 @@ GET http://localhost:8081/api/books/{isbn}
 				"br": 125.69
 			  }
 			}
-	404
+	<b>404</b><br>
 	    Parametro requerido {isbn}: ISBN-12345 (Requerido)
-			{"message" : "Unable to find book with that identifier"}
+			{"message" : "Unable to find book with that identifier"}<br>
 
 		
