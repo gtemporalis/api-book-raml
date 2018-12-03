@@ -61,7 +61,7 @@ Some examples of calls and outputs for each endpoint.
 					  "ar": 645.20,          
 					  "ch": 237.0,
 					  "br": 125.69
-					}
+					} 
 				  }
 				]
 			}<b>
