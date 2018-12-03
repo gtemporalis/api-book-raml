@@ -64,7 +64,7 @@ Some examples of calls and outputs for each endpoint.
 					}
 				  }
 				]
-			}
+			}<b>
 	<b>404</b><br>
 	    Parametro opcional {lang}: nr
 			{}
