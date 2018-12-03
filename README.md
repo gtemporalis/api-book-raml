@@ -3,13 +3,13 @@ Api Rest Book Design using RAML
 
 Some examples of calls and outputs for each endpoint.
 
-PUT http://localhost:8081/api/books/{isbn}
-	200
+<b>PUT</b> http://localhost:8081/api/books/{isbn}<br>
+	200<br>
 	    Parametro requerido {isbn}: ISBN-123456
-			{"message": "The book has been successfully updated."}
-	404
+			{"message": "The book has been successfully updated."}<br>
+	404<br>
 	    Parametro requerido {isbn}: ISBN-12345 (Requerido)
-			{"message" : "Unable to find book with that identifier"}
+			{"message" : "Unable to find book with that identifier"}<br>
 
 DELETE http://localhost:8081/api/books/{isbn}
 	200
