@@ -1,0 +1,308 @@
+#%RAML 1.0
+baseUri: http://localhost:8081/api
+title: Book Store API
+version: 1.0
+
+securitySchemes:
+  basic:
+    description: |
+      This API supports Basic Authentication.
+    type: Basic Authentication
+
+securedBy: [basic]
+
+types:
+  book:
+    properties:
+      isbn: isbn
+      title: title
+      language: language
+      authors: authorMap
+      year?: year
+      pages: pages
+      prices?: prices
+
+  isbn:
+    type: string
+    pattern: ISBN-\d{5}[\d]+$
+    required: true
+
+  title: 
+    type: string
+    pattern: "[A-Za-z0-9]+"
+
+  language:
+    type: string
+    pattern: "es|pt|en"
+
+  authorMap:
+    type: array
+    minItems: 1
+    items:
+      type: object
+      properties:
+          type: string
+
+  year:
+    type: number
+    minimum: 1000
+    maximum: 2100
+
+  pages:
+    type: number
+    minimum: 1
+
+  prices:
+    properties:
+      ar: ar|nil
+      ch: ch|nil
+      br: br|nil
+
+  ar:
+    type: number
+    format: float
+
+  ch:
+    type: number
+    format: float
+  
+  br:
+    type: number
+    format: float 
+
+/books:
+  displayName: Books Catalog
+  get:
+    queryParameters:
+      lang:
+        displayName: lang
+        type: language
+        required: false
+    responses:
+      200:
+        body:
+          application/json:
+            example: |
+              {
+                "books": [
+                  {
+                    "isbn": "ISBN-345341",  
+                    "title": "El Tunel",   
+                    "language": "es",      
+                    "authors": ["Ernesto Sábato"], 
+                    "year": 1990,          
+                    "pages": 350,          
+                    "prices": {            
+                      "ar": 230.50,          
+                      "ch": 703.0,
+                      "br": 78.99
+                    }
+                  },
+                  {
+                    "isbn": "ISBN-345341",  
+                    "title": "Codigo DaVinci",   
+                    "language": "en",      
+                    "authors": ["Dan Brown"], 
+                    "year": 2002,          
+                    "pages": 2350,          
+                    "prices": {            
+                      "ar": 450.50,          
+                      "ch": 901.0,
+                      "br": 450.71
+                    }
+                  },
+                  {
+                    "isbn": "ISBN-345341",  
+                    "title": "La voz ausente",   
+                    "language": "pt",      
+                    "authors": ["Gabriel Rolon"], 
+                    "year": 1982,          
+                    "pages": 890,          
+                    "prices": {            
+                      "ar": 645.20,          
+                      "ch": 237.0,
+                      "br": 125.69
+                    }
+                  }
+                ]
+              }
+      404:
+        body:
+          application/json:
+              example: |
+                {}
+  /{isbn}:
+    displayName: Book
+    uriParameters:
+      isbn:
+        type: isbn
+        description: Book Identifier.
+        required: true
+    get:
+      description: Retrieve book
+      responses:
+        200:
+          body:
+            application/json:
+              example:  |
+                {
+                  "isbn": "ISBN-345341",  
+                  "title": "La voz ausente",   
+                  "language": "pt",      
+                  "authors": ["Gabriel Rolon"], 
+                  "year": 1982,          
+                  "pages": 890,          
+                  "prices": {            
+                    "ar": 645.20,          
+                    "ch": 237.0,
+                    "br": 125.69
+                  }
+                }
+        404:
+          body:
+            application/json:
+                properties:
+                  message: string
+                example: |
+                  {
+                    "message" : "Book not found"
+                  }
+    post:
+      body:
+        application/json:
+          example: |
+            {
+              "isbn": "ISBN-345341",  
+              "title": "El Tunel",   
+              "language": "es",      
+              "authors": ["Ernesto Sábato"], 
+              "year": 1990,          
+              "pages": 350,          
+              "prices": {            
+                "ar": 180.50,          
+                "ch": 500.0,
+                "br": 99.99
+              }
+            }
+      responses:
+        200:
+          description: Book has been successfully created.
+        404:
+          description: Book already exists.
+    put:
+      description: Update book information.
+      body:
+         application/json:
+          example: |  
+            {
+              "isbn": "ISBN-345341",  
+              "title": "El Tunel",   
+              "language": "es",      
+              "authors": ["Ernesto Sábato"], 
+              "year": 1990,          
+              "pages": 350,          
+              "prices": {            
+                "ar": 180.50,          
+                "ch": 500.0,
+                "br": 99.99
+              }
+            }
+      responses:
+        200:
+          body:
+            application/json:
+                properties:
+                  message: string
+                example: |
+                  {
+                    "message" : "The book has been successfully updated."
+                  }
+        404:
+          body:
+            application/json:
+                properties:
+                  message: string
+                example: |
+                  {
+                    "message" : "Unable to find book with that identifier"
+                  }
+    delete:
+      description: Remove book from the catalog.
+      responses:
+        200:
+          body:
+            application/json:
+                properties:
+                  message: string
+                example: |
+                  {
+                    "message" : "The book has been successfully removed."
+                  }
+        404:
+          body:
+            application/json:
+                properties:
+                  message: string
+                example: |
+                  {
+                    "message" : "Unable to find book with that identifier"
+                  }
+/authors:
+  displayName: Authors Catalog
+  get:
+    responses:
+      200:
+        body:
+          application/json:
+           example: |
+            {
+                "authors": [
+                  {
+                    "id": "1",  
+                    "name": "Ernesto Sábato"
+                  },
+                  {
+                    "id": "2",  
+                    "name": "Dan Brown"
+                  },
+                  {
+                    "id": "3",  
+                    "name": "Gabriel Rolón"
+                  }
+                ]
+            }
+      404:
+          body:
+            application/json:
+                example: |
+                  {}
+  /{authorname}:
+    uriParameters:
+        authorname: string
+    get:
+      responses:
+        200:
+          body:
+            application/json:
+             example: |
+              {
+                "authors": [
+                  {
+                    "isbn": "SBN-345341",
+                    "title": "El Tunel"
+                  },
+                  {
+                    "isbn": "SBN-345341",  
+                    "title": "Codigo DaVinci"
+                  },
+                  {
+                    "isbn": "SBN-345341",  
+                    "title": "La voz ausente"
+                  }
+                ]
+              }
+        404:
+          body:
+            application/json:
+                example: |
+                  {}
